@@ -23,3 +23,15 @@ require('mytelescope').setup_bindings()
 require('mycmp').setup()
 require('mymetals').setup()
 require('gitsigns').setup()
+
+vim.api.nvim_create_autocmd(
+	'TextYankPost',
+	{
+		pattern = '*',
+		group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+		desc = 'Highlight yanked block',
+		callback = function()
+			vim.highlight.on_yank( { timeout = 100 } )
+		end
+	}
+)
