@@ -10,9 +10,20 @@ function module:setup()
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = { "scala", "sbt", "java" },
 		callback = function()
-		require("metals").initialize_or_attach(metals_config)
+			require("metals").initialize_or_attach(metals_config)
 		end,
 		group = nvim_metals_group,
+	})
+
+	vim.api.nvim_create_autocmd('BufWritePre', {
+		pattern = { '*.scala' },
+		group = nvim_metals_group,
+		callback = function(args)
+			local client = vim.lsp.get_clients({ bufnr = args.buf, name = "metals" })[1]
+			if client ~= nil then
+				vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+			end
+		end
 	})
 
 	vim.keymap.set("n", "gD",  vim.lsp.buf.definition)
