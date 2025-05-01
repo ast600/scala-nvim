@@ -4,6 +4,7 @@ function module:setup()
 	metals_config = require('metals').bare_config()
 	metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 	metals_config.capabilities.textDocument.completion.completionItem.snippetSupport = false
+  metals_config.init_options.statusBarProvider = "off"
 
 	local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
 
