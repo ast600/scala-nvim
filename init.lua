@@ -5,6 +5,7 @@ vim.opt.number = true
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
+vim.o.exrc = true
 
 Plug('nvim-lua/plenary.nvim', { ['tag'] = 'v0.1.4' })
 Plug('nvim-telescope/telescope.nvim', { ['branch'] = '0.1.x' })
@@ -22,7 +23,7 @@ vim.cmd('silent! colorscheme onedark')
 require('mytelescope').setup_bindings()
 require('mycmp').setup()
 require('mymetals').setup()
-require('fidget').setup()
+require('myfidget').setup()
 require('gitsigns').setup()
 
 vim.api.nvim_create_autocmd(
