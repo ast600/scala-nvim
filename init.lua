@@ -7,6 +7,7 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 vim.o.exrc = true
 
+Plug('mfussenegger/nvim-dap', { ['tag'] = '0.10.0' })
 Plug('nvim-lua/plenary.nvim', { ['tag'] = 'v0.1.4' })
 Plug('nvim-telescope/telescope.nvim', { ['branch'] = '0.1.x' })
 Plug('scalameta/nvim-metals', { ['tag'] = 'v0.10.x', ['for'] = { 'scala', 'sbt', 'java' } })
@@ -22,6 +23,7 @@ vim.cmd('silent! colorscheme onedark')
 
 require('mytelescope').setup_bindings()
 require('mycmp').setup()
+require('mydap').setup()
 require('mymetals').setup()
 require('myfidget').setup()
 require('gitsigns').setup()
