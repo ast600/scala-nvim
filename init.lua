@@ -6,6 +6,7 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 vim.o.exrc = true
+vim.opt.mouse = ""
 
 Plug('mfussenegger/nvim-dap', { ['tag'] = '0.10.0' })
 Plug('nvim-lua/plenary.nvim', { ['tag'] = 'v0.1.4' })
