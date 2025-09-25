@@ -39,3 +39,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight yanked block',
     callback = function() vim.highlight.on_yank({timeout = 100}) end
 })
+
+vim.filetype.add({
+    extension = {j2 = 'jinja'},
+    filename = {['.bashrc'] = 'bash', ['.gitignore'] = 'git'},
+    pattern = {['.*%.ya?ml$'] = 'yaml'}
+})
