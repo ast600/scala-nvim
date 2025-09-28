@@ -45,3 +45,7 @@ vim.filetype.add({
     filename = {['.bashrc'] = 'bash', ['.gitignore'] = 'git'},
     pattern = {['.*%.ya?ml$'] = 'yaml'}
 })
+
+vim.opt.grepprg =
+    "grep --recursive --with-filename --line-number --color=never --exclude-dir='.git' --exclude-dir='.metals' --exclude-dir='target'"
+vim.opt.grepformat = '%f:%l:%m'

@@ -16,6 +16,8 @@ function module:setup_bindings()
                    {desc = 'Telescope find files'})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep,
                    {desc = 'Telescope live grep'})
+    vim.keymap.set('n', '<leader>fs', builtin.git_status,
+                   {desc = 'Telescope git status'})
 end
 
 return module
