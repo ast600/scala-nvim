@@ -40,6 +40,35 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.highlight.on_yank({timeout = 100}) end
 })
 
+vim.api.nvim_create_autocmd({'BufEnter', 'ModeChanged'}, {
+    pattern = '*',
+    group = vim.api.nvim_create_augroup('setup_statusline', {clear = true}),
+    desc = 'Show current mode, file and git branch on the statusline',
+    callback = function()
+        local mode_short_name = vim.api.nvim_get_mode()['mode']
+        local mode_full_name = ''
+        local git_branch = ''
+
+        if mode_short_name == 'i' then
+            mode_full_name = '[INSERT]'
+        elseif mode_short_name == 'n' then
+            mode_full_name = '[NORMAL]'
+        elseif mode_short_name == 'R' then
+            mode_full_name = '[REPLACE]'
+        elseif mode_short_name:lower() == 's' then
+            mode_full_name = '[SELECT]'
+        elseif mode_short_name:lower() == 'v' then
+            mode_full_name = '[VISUAL]'
+        end
+
+        local obj = vim.system({'git', 'branch', '--show-current'},
+                               {text = true}):wait()
+        if obj.code == 0 then git_branch = obj.stdout:gsub("\n$", "") end
+
+        vim.opt.statusline = mode_full_name .. ' %f%r%q%=' .. git_branch
+    end
+})
+
 vim.filetype.add({
     extension = {j2 = 'jinja'},
     filename = {['.bashrc'] = 'bash', ['.gitignore'] = 'git'},
