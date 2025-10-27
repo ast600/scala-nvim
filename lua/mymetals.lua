@@ -13,7 +13,27 @@ function module:setup()
 
     vim.api.nvim_create_autocmd("FileType", {
         pattern = {"scala", "sbt", "java"},
-        callback = function()
+        callback = function(args)
+            vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition,
+                           {desc = 'Go to definition', buffer = args.buf})
+            vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation,
+                           {desc = 'Go to implementation', buffer = args.buf})
+            vim.keymap.set("n", "<leader>fr", vim.lsp.buf.references,
+                           {desc = 'Find references', buffer = args.buf})
+            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,
+                           {desc = 'Code action', buffer = args.buf})
+            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename,
+                           {desc = 'Rename', buffer = args.buf})
+            vim.keymap.set("n", "<leader>bd", vim.diagnostic.setloclist,
+                           {desc = 'Buffer diagnostic', buffer = args.buf})
+            vim.keymap.set("n", "<leader>wd", function()
+                vim.diagnostic.setqflist({
+                    severity = {min = vim.diagnostic.severity.WARN}
+                })
+            end, {desc = 'Workspace diagnostic', buffer = args.buf})
+            vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover,
+                           {desc = 'Hover', buffer = args.buf})
+
             require("metals").initialize_or_attach(metals_config)
         end,
         group = nvim_metals_group
@@ -27,34 +47,13 @@ function module:setup()
                 bufnr = args.buf,
                 name = "metals"
             })[1]
+
             if client ~= nil then
                 vim.lsp.buf.format({bufnr = args.buf, id = client.id})
             end
         end
     })
 
-    vim.keymap.del("n", "grn")
-    vim.keymap.del("n", "gra")
-    vim.keymap.del("n", "grr")
-    vim.keymap.del("n", "gri")
-    vim.keymap.del("n", "gO")
-    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition,
-                   {desc = 'Go to definition'})
-    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation,
-                   {desc = 'Go to implementation'})
-    vim.keymap.set("n", "<leader>fr", vim.lsp.buf.references,
-                   {desc = 'Find references'})
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,
-                   {desc = 'Code action'})
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {desc = 'Rename'})
-    vim.keymap.set("n", "<leader>bd", vim.diagnostic.setloclist,
-                   {desc = 'Buffer diagnostic'})
-    vim.keymap.set("n", "<leader>wd", function()
-        vim.diagnostic.setqflist({
-            severity = {min = vim.diagnostic.severity.WARN}
-        })
-    end, {desc = 'Workspace diagnostic'})
-    vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, {desc = 'Hover'})
 end
 
 return module

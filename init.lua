@@ -26,6 +26,12 @@ Plug('navarasu/onedark.nvim',
 vim.call('plug#end')
 vim.cmd('silent! colorscheme onedark')
 
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "gra")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "gO")
+
 require('mytelescope').setup_bindings()
 require('mycmp').setup()
 require('mydap').setup()
