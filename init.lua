@@ -26,11 +26,29 @@ Plug('navarasu/onedark.nvim',
 vim.call('plug#end')
 vim.cmd('silent! colorscheme onedark')
 
-vim.keymap.del("n", "grn")
-vim.keymap.del("n", "gra")
-vim.keymap.del("n", "grr")
-vim.keymap.del("n", "gri")
-vim.keymap.del("n", "gO")
+vim.cmd([[
+	function! CopyRelBufPath()
+		let @+ = expand('%')
+	endfunction
+]])
+
+vim.cmd([[
+	function! CopyRelBufPathWLoc()
+		let @+ = expand('%') . ':' . line('.')
+	endfunction
+]])
+
+vim.cmd([[
+	function! CopyQfItem(idx)
+		let @+ = getqflist({'items': 0}).items[a:idx].text
+	endfunction
+]])
+
+vim.cmd([[
+	function! CopyLocItem(idx)
+		let @+ = getloclist(0, {'items': 0}).items[a:idx].text
+	endfunction
+]])
 
 require('mytelescope').setup_bindings()
 require('mycmp').setup()
