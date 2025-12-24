@@ -98,3 +98,8 @@ vim.filetype.add({
 vim.opt.grepprg =
     "grep --recursive --with-filename --line-number --color=never --exclude-dir='.git' --exclude-dir='.metals' --exclude-dir='target'"
 vim.opt.grepformat = '%f:%l:%m'
+
+vim.keymap.set('n', '[b', ':bprev<CR>', {desc = 'Previous buffer'})
+vim.keymap.set('n', ']b', ':bnext<CR>', {desc = 'Next buffer'})
+vim.keymap.set('n', '[q', ':cprev<CR>', {desc = 'Previous quickfix item'})
+vim.keymap.set('n', ']q', ':cnext<CR>', {desc = 'Next quickfix item'})
